@@ -141,7 +141,8 @@ body {
 
 .container .box-break input {
     height: auto;
-    font-family: 'Digital-7 Mono', sans-serif;
+    /*font-family: 'Digital-7 Mono', sans-serif;*/
+    font-family: sans-serif;
     border: none;
     font-size: 1.3em;
     color: #15a0d3;
@@ -231,10 +232,6 @@ body {
     }
     
     .container .box-break input {
-        font-size: 1.4em;
-    }
-    
-    .container .box-break input {
         font-size: 1.6em;
     }
     
@@ -242,9 +239,9 @@ body {
         font-size: 1.1em;
     }
     
-        .container .box-break span {
+    .container .box-break span {
     display: block;
-    margin: 5px 0 40px 0;
+    margin: 15px 0 40px 0;
     }
     
     .container .boxMensagem {
