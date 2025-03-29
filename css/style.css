@@ -242,6 +242,11 @@ body {
     .container .box-break button {
         font-size: 1.1em;
     }
+
+    .container .box-break span {
+    display: block;
+    margin: 10px 0 40px 0;
+    }
     
     .container .boxMensagem {
     min-width: 280px;
