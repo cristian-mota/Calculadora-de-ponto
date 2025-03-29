@@ -1,1 +1,266 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+}
+
+body {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    font-family: sans-serif;
+    background: rgba(0,0,0,0.9);
+}
+
+.container {
+    width: 380px;  /* 90% da altura da tela */    
+    position: relative;
+    text-align: center;
+    border-radius: 2px;
+    background: rgba(249, 252, 249);
+}
+
+.container .blackdiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    opacity: 0;
+    transition: ease-out 300ms;
+    background: rgba(0,0,0,0.7);
+}
+
+.container .boxMensagem {
+    min-width: 250px;
+    min-height: 200px;
+    background: #fff;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(.8);
+    transition: ease-in-out 200ms;
+    opacity: 0;
+}
+
+.container .boxMensagem h2 {
+    font-size: .8em;
+    padding: 5px 0 5px 5px;
+    text-align: left;
+    color: #FFEDFF;
+    background: #6300ef;
+}
+
+
+.container .boxMensagem .informations {
+    width: 60%;
+    margin: 20px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /*border: 1px solid;*/
+}
+
+.container .boxMensagem .informations > div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 5px;
+    /*background: gold;*/
+}
+
+.container .boxMensagem .informations div label {    
+    flex: 1;
+    font-size: 1em;
+    text-align: left;
+    /*border: 1px solid green;*/
+}
+
+.container .boxMensagem .informations div span {
+    flex: 1;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 1em;
+    color: silver;
+    /*border: 1px solid tomato;*/
+}
+
+.container .boxMensagem .informations #positiva {
+    color: #15ad20;
+}
+
+.container .boxMensagem .informations #negativa {
+    color: #f93f5e;
+}
+
+.container .boxMensagem .informations #noturna {
+    color: #7c7a7a;
+}
+
+.container .boxMensagem button {
+    margin-top: 30px;
+    background: #2c58fd;
+    padding: 5px 10px;
+    border-radius: 3px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+
+.container h1 {
+    padding: 10px;
+    margin: 0;
+    font-size: .8rem;
+    text-align: left;
+    color: #FFEDFF;
+    background: #6300EF;
+}
+
+.container .box-break {
+    margin: 20px 15px 0 15px;    
+    display: flex;
+    flex-direction: column;
+}
+
+.container .box-break label {
+    margin: 5px 0;
+    font-size: .9em;
+    color: #7D7A7D;
+    font-weight: bold;
+    text-align: left;    
+}
+
+.container .box-break input {
+    padding: 5px 0 10px 0;
+    font-family: 'Digital-7 Mono', sans-serif;
+    border: none;
+    font-size: 1.3em;
+    color: #15a0d3;
+    background: none;
+    outline: none;
+    transition: border-color 0.1s ease-in-out, box-shadow 0.1s ease-in-out;    
+}
+
+.container .box-break input::placeholder {
+    color: gray;
+    opacity: .4;
+    font-size: .9em;
+}
+
+.container .box-break span {
+    display: block;
+    margin-bottom: 40px;
+    transition: ease-in-out 300ms;
+    border-bottom: 1px solid #B4B1B4;    
+}
+
+.container .box-break .efect-neon {
+    box-shadow: 0 0 3px 0px #67e0d8;
+    border-bottom: 1px solid #3dd3c9;
+}
+
+.container .box-break .efect-neon-red {
+    box-shadow: 0 0 3px 0px tomato;
+    border-bottom: 1px solid tomato;
+}
+
+.container .box-break button {
+    max-width:  100%;
+    border: none;
+    padding: 10px 30px;
+    margin: 0px auto 30px auto;
+    border-radius: 2px;
+    color: #FFEDFF;
+    font-size: .85em;
+    font-weight: bold;
+    transition: ease .2s;
+    text-transform: uppercase;
+    background: #6100EB;
+    cursor: pointer;
+}
+
+.container .box-break button:hover {
+    background: #4200a5;
+}
+
+
+.container .burguer-menu {    
+    width: 25px;
+    height: 35px;
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    top: 0;
+    right: 0;
+}
+
+.container .burguer-menu span {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ddd;
+}
+
+
+/* Ajustes para telas menores */
+@media (max-width: 580px) {
+    .container {
+        width: 95vw;
+        min-height: 90vh;
+    }
+    
+    .container h1 {
+        font-size: 1.3em;
+    }
+    
+    .container .box-break label {
+        font-size: 1.1em;
+    }
+    
+    .container .box-break input {
+        font-size: 1.4em;
+    }
+    
+    .container .box-break input {
+        font-size: 1.6em;
+    }
+    
+    .container .box-break button {
+        font-size: 1.1em;
+    }
+    
+    .container .boxMensagem {
+    min-width: 280px;
+    min-height: 230px;
+    }
+    
+    .container .boxMensagem h2 {
+        font-size: 1em;
+    }
+    
+    .container .boxMensagem .informations {
+        gap: 10px;
+    }
+
+
+    .container .boxMensagem .informations div label,
+    .container .boxMensagem .informations div span {
+        font-size: 1.3em;
+    }
+    
+    .container .boxMensagem button {
+        font-size: 1.1em;
+    }
+}
 
