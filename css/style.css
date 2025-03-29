@@ -159,7 +159,7 @@ body {
 
 .container .box-break span {
     display: block;
-    margin: 0 0 40px 0;
+    margin: 5px 0 40px 0;
     transition: ease-in-out 300ms;
     border-bottom: 1px solid #B4B1B4;
 }
@@ -241,7 +241,7 @@ body {
     
     .container .box-break span {
     display: block;
-    margin: 15px 0 40px 0;
+    margin: 5px 0 40px 0;
     }
     
     .container .boxMensagem {
