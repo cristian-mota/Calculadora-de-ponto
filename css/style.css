@@ -141,7 +141,8 @@ body {
 }
 
 .container .box-break input {
-    padding: 5px 0 10px 0;
+    /*padding: 5px 0 10px 0;*/
+    height: auto;
     font-family: 'Digital-7 Mono', sans-serif;
     border: none;
     font-size: 1.3em;
