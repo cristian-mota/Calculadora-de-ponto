@@ -1,6 +1,5 @@
 @import url("https://fonts.cdnfonts.com/css/digital-7-mono");
 
-
 * {
     margin: 0;
     padding: 0;
@@ -141,7 +140,6 @@ body {
 }
 
 .container .box-break input {
-    /*padding: 5px 0 10px 0;*/
     height: auto;
     font-family: 'Digital-7 Mono', sans-serif;
     border: none;
@@ -160,9 +158,9 @@ body {
 
 .container .box-break span {
     display: block;
-    margin-bottom: 40px;
+    margin: 10px 0 40px 0;
     transition: ease-in-out 300ms;
-    border-bottom: 1px solid #B4B1B4;    
+    border-bottom: 1px solid #B4B1B4;
 }
 
 .container .box-break .efect-neon {
@@ -243,10 +241,10 @@ body {
     .container .box-break button {
         font-size: 1.1em;
     }
-
-    .container .box-break span {
+    
+        .container .box-break span {
     display: block;
-    margin: 20px 0 40px 0;
+    margin: 5px 0 40px 0;
     }
     
     .container .boxMensagem {
@@ -272,4 +270,3 @@ body {
         font-size: 1.1em;
     }
 }
-
