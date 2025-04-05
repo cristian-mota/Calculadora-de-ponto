@@ -41,54 +41,103 @@ function Calcular() { // função do botão 'CALCULAR'
     let horaIda = batida2[0] * 60 + Number(batida2[1])
     let horaVolta = batida3[0] * 60 + Number(batida3[1])
     let horaFim = batida4[0] * 60 + Number(batida4[1])
-        
     
     
-    let hora, min, resultado;
-    
+    let hora, min, resultado;    
     function calcularBatidas(param) {
+            /* // método com lógica pura
             if (param >= '60') {hora = parseInt(param / 60)} else {hora = '00'}
             if (hora < 10 && hora >= 1) {hora = '0' + String(hora)}
             let y = param % 60
             if (y == '0') {min = '00'} else if (y >= '10') {min = y} else {min = `0${y}`}
-            return `${hora}:${min}`
-        }        
+            return `${hora}:${min}`; */        
+        let hora = Math.floor(param / 60); // método resumido, usando métodos()
+        let min = param % 60;
+    return `${hora.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
+        } // function calcularBatidas()
+    
+       let noturnas;
+        horasNoturnas(horaEntrada, horaIda, horaVolta, horaFim)         
+    function horasNoturnas(entrada, ida, volta, fim) {
+        let tempo1, tempo2;
+    if (entrada >= 1320 && ida > 1320 && ida <= 1440) { // 1º tempo
+        tempo1 = ida - entrada
+    } else if (entrada >= 1320 && ida <= 300) {
+        tempo1 = 1440 - entrada + ida
+    } else if (entrada < 1320 && ida > 1320) {
+        tempo1 = ida - 1320
+        } else if (entrada <= 1320 && ida <= 1320 && ida < entrada & ida <= 300) {
+            tempo1 = 120 + ida
+        } else if (entrada < 1320 && ida <= 1320 && ida < entrada & ida > 300) { // 21:00 06:00
+            tempo1 = 120 + 300
+        } else if (entrada <= 1320 && ida <= 1320 && ida > entrada && ida <= 300) { // 01:00 04:50
+                tempo1 = ida - entrada
+            } else if (entrada <= 1320 && entrada > 300 && ida <= 1320 && ida > entrada) {
+                tempo1 = 0                
+            } else if (entrada <= 1320 && ida <= 1320 && ida < entrada && ida > 300) {
+                tempo1 = 420
+                console.log('1')
+            } else if (entrada <= 1320 && ida <= 1320 && ida > entrada && ida > 300) { // 01:00 +06:00
+                tempo1 = 300 - entrada
+            } else {tempo1 = 0                    
+                   } // Fim 1º tempo
+        
+        if (volta >= 1320 && fim > 1320 && fim <= 1440) { //2º tempo
+        tempo2 = fim - volta
+    } else if (volta >= 1320 && fim <= 300) {
+        tempo2 = 1440 - volta + fim
+    } else if (volta < 1320 && fim > 1320) {
+        tempo2 = fim - 1320
+        } else if (volta <= 1320 && fim <= 1320 && fim < volta & fim <= 300) {
+            tempo2 = 120 + fim
+        } else if (volta < 1320 && fim <= 1320 && fim < volta & fim > 300) { // 21:00 06:00
+            tempo2 = 120 + 300
+        } else if (volta <= 1320 && fim <= 1320 && fim > volta && fim <= 300) { // 01:00 04:50
+                tempo2 = fim - volta
+            } else if (volta <= 1320 && volta > 300 && fim <= 1320 && fim > volta) {
+                tempo2 = 0                
+            } else if (volta <= 1320 && fim <= 1320 && fim < volta && fim > 300) {
+                tempo2 = 420
+                console.log('1')
+            } else if (volta <= 1320 && fim <= 1320 && fim > volta && fim > 300) { // 01:00 +06:00
+                tempo2 = 300 - volta
+            } else {tempo2 = 0                    
+                   }
+        noturnas = tempo1+tempo2
+        noturnas = calcularBatidas(noturnas)        
+}
+    
+    
+    
+    
     
     let primeiroTempo, segundoTempo;    
     if (horaIda > horaEntrada) { // verifica se a 2ª batida é maior que a 1ª batida.
         primeiroTempo = horaIda - horaEntrada        
-    } else {primeiroTempo = 1440 - horaEntrada + horaIda}
+    } else {primeiroTempo = (1440 - horaEntrada) + horaIda}
     
     if (horaFim > horaVolta) { // verifica se a 4ª batida é maior que a 3ª batida.
         segundoTempo = horaFim - horaVolta        
-    } else {segundoTempo = 1440 - horaVolta + horaFim}
+    } else {segundoTempo = (1440 - horaVolta) + horaFim}
     
-     let negativas;
+     let negativas; // calcula as horas negativas
      let positivas = primeiroTempo + segundoTempo
      if (positivas < '440') {
          negativas = '440' - positivas
          negativas = calcularBatidas(negativas)
      } else {negativas = '00:00'}
+
+    // calcula as horas positivas
     positivas = calcularBatidas(positivas)
-    console.log(negativas)
     
-    
-    console.log(negativas)
-    
-showModal(positivas, negativas)
-     
-    
-    
+showModal(positivas, negativas, noturnas) 
 } // fim function Calcular()
 
 
-
-
-function showModal(positivas, negativas) {
+function showModal(positivas, negativas, noturnas) {
     let wrapperModal = document.createElement('div')
     wrapperModal.className = 'blackdiv'
-    containerApp.appendChild(wrapperModal)
-    
+    containerApp.appendChild(wrapperModal)    
     // Adiciona o evento de clique para fechar o modal
     wrapperModal.addEventListener('click', function () {
         wrapperModal.style.opacity = '0'
@@ -97,6 +146,7 @@ function showModal(positivas, negativas) {
         setTimeout(() =>{
             boxMsg.remove()
             wrapperModal.remove()
+            btncalcular.disabled = false;
                         },200)
     })
     
@@ -111,15 +161,16 @@ function showModal(positivas, negativas) {
     },000)
     
     setTimeout(() =>{
-        boxMsg.insertAdjacentHTML("afterbegin",`<h2>Resultado dos Registros</h2><div class="informations"><div><label id="positiva">Positivas</label><span>+${positivas}</span></div><div><label id="negativa">Negativas</label><span>-${negativas}</span></div><div><label id="noturna">Noturnas</label><span>+00:00</span></div></div><button>Realizar outro Cálculo</button>`)
+        boxMsg.insertAdjacentHTML("afterbegin",`<h2>Resultado dos Registros</h2><div class="informations"><div><label id="positiva">Positivas</label><span>+${positivas}</span></div><div><label id="negativa">Negativas</label><span>-${negativas}</span></div><div><label id="noturna">Noturnas</label><span>+${noturnas}</span></div></div><button>Realizar outro Cálculo</button>`)
     },000)
-}
+} // function showModal()
 
 
-btncalcular.addEventListener('click', function () {
+btncalcular.addEventListener('click', function () { // função do botão CALCULAR
     let camposPreenchidos = Array.from(inputs).every(input => input.value.length >= 4)
     if (camposPreenchidos) {
         Calcular()
+        btncalcular.disabled = true;
     } else {
             inputs.forEach((input, index) =>{
                 if (input.value.length < 5) {
