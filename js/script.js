@@ -57,52 +57,38 @@ function Calcular() { // função do botão 'CALCULAR'
         } // function calcularBatidas()
     
        let noturnas;
-        horasNoturnas(horaEntrada, horaIda, horaVolta, horaFim)         
+horasNoturnas(horaEntrada, horaIda, horaVolta, horaFim)         
     function horasNoturnas(entrada, ida, volta, fim) {
         let tempo1, tempo2;
-    if (entrada >= 1320 && ida > 1320 && ida <= 1440) { // 1º tempo
-        tempo1 = ida - entrada
-    } else if (entrada >= 1320 && ida <= 300) {
-        tempo1 = 1440 - entrada + ida
-    } else if (entrada < 1320 && ida > 1320) {
-        tempo1 = ida - 1320
-        } else if (entrada <= 1320 && ida <= 1320 && ida < entrada & ida <= 300) {
-            tempo1 = 120 + ida
-        } else if (entrada < 1320 && ida <= 1320 && ida < entrada & ida > 300) { // 21:00 06:00
-            tempo1 = 120 + 300
-        } else if (entrada <= 1320 && ida <= 1320 && ida > entrada && ida <= 300) { // 01:00 04:50
-                tempo1 = ida - entrada
-            } else if (entrada <= 1320 && entrada > 300 && ida <= 1320 && ida > entrada) {
-                tempo1 = 0                
-            } else if (entrada <= 1320 && ida <= 1320 && ida < entrada && ida > 300) {
-                tempo1 = 420
-                console.log('1')
-            } else if (entrada <= 1320 && ida <= 1320 && ida > entrada && ida > 300) { // 01:00 +06:00
-                tempo1 = 300 - entrada
-            } else {tempo1 = 0                    
-                   } // Fim 1º tempo
         
-        if (volta >= 1320 && fim > 1320 && fim <= 1440) { //2º tempo
-        tempo2 = fim - volta
-    } else if (volta >= 1320 && fim <= 300) {
-        tempo2 = 1440 - volta + fim
-    } else if (volta < 1320 && fim > 1320) {
-        tempo2 = fim - 1320
-        } else if (volta <= 1320 && fim <= 1320 && fim < volta & fim <= 300) {
-            tempo2 = 120 + fim
-        } else if (volta < 1320 && fim <= 1320 && fim < volta & fim > 300) { // 21:00 06:00
-            tempo2 = 120 + 300
-        } else if (volta <= 1320 && fim <= 1320 && fim > volta && fim <= 300) { // 01:00 04:50
-                tempo2 = fim - volta
-            } else if (volta <= 1320 && volta > 300 && fim <= 1320 && fim > volta) {
-                tempo2 = 0                
-            } else if (volta <= 1320 && fim <= 1320 && fim < volta && fim > 300) {
-                tempo2 = 420
-                console.log('1')
-            } else if (volta <= 1320 && fim <= 1320 && fim > volta && fim > 300) { // 01:00 +06:00
-                tempo2 = 300 - volta
-            } else {tempo2 = 0                    
-                   }
+        tempo1 = calculaHorasNoturnas(entrada, ida)
+        tempo2 = calculaHorasNoturnas(volta, fim)
+        
+function calculaHorasNoturnas(priTempo, segTempo) {
+    let tempo;
+
+    if (priTempo >= 1320 && segTempo > 1320 && segTempo <= 1440) {
+        tempo = segTempo - priTempo;
+    } else if (priTempo >= 1320 && segTempo <= 300) {
+        tempo = 1440 - priTempo + segTempo;
+    } else if (priTempo < 1320 && segTempo > 1320) {
+        tempo = segTempo - 1320;
+    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo < priTempo && segTempo <= 300) {
+        tempo = 120 + segTempo;
+    } else if (priTempo < 1320 && segTempo <= 1320 && segTempo < priTempo && segTempo > 300) { 
+        tempo = 120 + 300;
+    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo > priTempo && segTempo <= 300) { 
+        tempo = segTempo - priTempo;
+    } else if (priTempo <= 1320 && priTempo > 300 && segTempo <= 1320 && segTempo > priTempo) {
+        tempo = 0;
+    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo < priTempo && segTempo > 300) {
+        tempo = 420;
+    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo > priTempo && segTempo > 300) { 
+        tempo = 300 - priTempo;
+    } else {tempo = 0;}
+
+    return tempo;
+} // function calculaHorasNoturnas()
         noturnas = tempo1+tempo2
         noturnas = calcularBatidas(noturnas)        
 }
