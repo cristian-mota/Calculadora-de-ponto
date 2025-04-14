@@ -2,10 +2,51 @@ const containerApp = document.querySelector('.container')
 const inputs = document.querySelectorAll('input')
 const spams = document.querySelectorAll('span')
 const btncalcular = document.getElementById('calcular')
+const calculadora =  document.querySelector('.box-break')
+const btncalc = document.getElementById('calc')
+const menuPrincipal = document.querySelector('.box-menu')
 
-document.querySelector('.box-break').addEventListener('submit', function(event) {
+const mHamburguer = document.querySelector('.burguer-menu')
+const spins = document.querySelectorAll('.burguer-menu span')
+
+calculadora.addEventListener('submit', function(event) {
     event.preventDefault(); // Impede o envio do formulário
 });
+
+
+btncalc.addEventListener('click', () => {
+    menuPrincipal.classList.toggle('fechado') //opacity: 0 .3s
+    setTimeout(() => {
+        calculadora.classList.toggle('recuar'); // esconde com animation
+        calculadora.classList.toggle('balanco-suave'); // exibe com animation
+        containerApp.querySelector('h1').textContent = 'Calculadora de Ponto';
+        containerApp.querySelector('h1').style.background = '#3599F2';
+        menuPrincipal.classList.toggle('zeroMargin') // display:none no menu
+        spins.forEach( (spin,index) =>{
+            if (index == 0) {spin.id = 'close1'}
+            if (index == 1) {spin.id = 'close2'}
+            if (index == 2) {spin.id = 'close3'}            
+        })               
+    },400)    
+});  // btncalc Event click
+
+
+mHamburguer.addEventListener('click', () =>{
+           if (calculadora.classList.contains('balanco-suave')) {
+               spins.forEach((spin) => {
+               spin.id = ''; // Remove o ID
+           });
+            calculadora.classList.toggle('balanco-suave')
+            calculadora.classList.toggle('recuar');
+            containerApp.querySelector('h1').textContent = 'Calculadora e Registro de Ponto';
+            containerApp.querySelector('h1').style.background = '#6300EF';  
+            menuPrincipal.classList.toggle('zeroMargin');
+            setTimeout(() =>{menuPrincipal.classList.toggle('fechado')},300)
+           } // condição if
+
+        }) 
+
+
 
 
 //Formata a entrada de tempo no formato HH:MM
@@ -56,44 +97,45 @@ function Calcular() { // função do botão 'CALCULAR'
     return `${hora.toString().padStart(2, '0')}:${min.toString().padStart(2, '0')}`;
         } // function calcularBatidas()
     
-       let noturnas;
-horasNoturnas(horaEntrada, horaIda, horaVolta, horaFim)         
-    function horasNoturnas(entrada, ida, volta, fim) {
-        let tempo1, tempo2;
-        
-        tempo1 = calculaHorasNoturnas(entrada, ida)
-        tempo2 = calculaHorasNoturnas(volta, fim)
-        
-function calculaHorasNoturnas(priTempo, segTempo) {
-    let tempo;
+      let noturnas;
 
-    if (priTempo >= 1320 && segTempo > 1320 && segTempo <= 1440) {
-        tempo = segTempo - priTempo;
-    } else if (priTempo >= 1320 && segTempo <= 300) {
-        tempo = 1440 - priTempo + segTempo;
-    } else if (priTempo < 1320 && segTempo > 1320) {
-        tempo = segTempo - 1320;
-    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo < priTempo && segTempo <= 300) {
-        tempo = 120 + segTempo;
-    } else if (priTempo < 1320 && segTempo <= 1320 && segTempo < priTempo && segTempo > 300) { 
-        tempo = 120 + 300;
-    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo > priTempo && segTempo <= 300) { 
-        tempo = segTempo - priTempo;
-    } else if (priTempo <= 1320 && priTempo > 300 && segTempo <= 1320 && segTempo > priTempo) {
-        tempo = 0;
-    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo < priTempo && segTempo > 300) {
-        tempo = 420;
-    } else if (priTempo <= 1320 && segTempo <= 1320 && segTempo > priTempo && segTempo > 300) { 
-        tempo = 300 - priTempo;
-    } else {tempo = 0;}
+calcularHorasNoturnas(horaEntrada, horaIda, horaVolta, horaFim);
 
-    return tempo;
-} // function calculaHorasNoturnas()
-        noturnas = tempo1+tempo2
-        noturnas = calcularBatidas(noturnas)        
+function calcularHorasNoturnas(entrada, ida, volta, fim) {
+    const tempo1 = calcularTempoNoturno(entrada, ida);
+    const tempo2 = calcularTempoNoturno(volta, fim);
+
+    noturnas = calcularBatidas(tempo1 + tempo2);
 }
-    
-    
+
+function calcularTempoNoturno(inicio, fim) {
+    // Converte para faixa de 0 a 2880 para lidar com horários que atravessam a meia-noite
+    if (fim < inicio) {
+        fim += 1440;
+    }
+
+    const periodosNoturnos = [
+        [1320, 1440],     // 22:00 - 00:00
+        [0, 300],         // 00:00 - 05:00
+        [1320 + 1440, 1440 + 1440], // 22:00 - 00:00 do "dia seguinte"
+        [0 + 1440, 300 + 1440]      // 00:00 - 05:00 do "dia seguinte"
+    ];
+
+    let total = 0;
+
+    for (const [nInicio, nFim] of periodosNoturnos) {
+        const sobreposicao = intersecao(inicio, fim, nInicio, nFim);
+        total += sobreposicao;
+    }
+
+    return total;
+}
+
+function intersecao(aInicio, aFim, bInicio, bFim) {
+    const inicio = Math.max(aInicio, bInicio);
+    const fim = Math.min(aFim, bFim);
+    return Math.max(0, fim - inicio);
+}    
     
     
     
@@ -147,7 +189,7 @@ function showModal(positivas, negativas, noturnas) {
     },000)
     
     setTimeout(() =>{
-        boxMsg.insertAdjacentHTML("afterbegin",`<h2>Resultado dos Registros</h2><div class="informations"><div><label id="positiva">Positivas</label><span>+${positivas}</span></div><div><label id="negativa">Negativas</label><span>-${negativas}</span></div><div><label id="noturna">Noturnas</label><span>+${noturnas}</span></div></div><button>Realizar outro Cálculo</button>`)
+        boxMsg.insertAdjacentHTML("afterbegin",`<h2>Resultado dos Registros</h2><div class="informations"><div><label id="positiva">Positivas</label><span>+ ${positivas}</span></div><div><label id="negativa">Negativas</label><span>- ${negativas}</span></div><div><label id="noturna">Noturnas</label><span>+ ${noturnas}</span></div></div>`)
     },000)
 } // function showModal()
 
