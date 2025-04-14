@@ -17,10 +17,11 @@ body {
 
 .container {
     margin: 0 auto;
-    width: 380px;  /* 90% da altura da tela */    
+    width: 380px;  /* 90% da altura da tela */ 
     position: relative;
     text-align: center;
     border-radius: 2px;
+    overflow: hidden;
     background: rgba(249, 252, 249);
 }
 
@@ -37,9 +38,58 @@ body {
     background: rgba(0,0,0,0.7);
 }
 
+.container .box-menu {
+      margin: 30px auto;
+      padding: 20px 0;
+      max-height: 500px;
+      min-height: 50px;
+      max-width: 90%;
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;     
+      /*border: 1px solid tomato;*/
+    }
+
+.container .fechado {
+    transition: all .3s ease, opacity .3s ease;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.container .zeroMargin {
+    display: none;    
+}
+
+
+.container .box-menu h2 {    
+      color: #87878c;
+    }
+
+    .container .box-menu .opcao {
+      width: 70%;
+      display: block;      
+      color: white;
+      text-decoration: none;
+      padding: 12px 20px;
+      margin: 20px auto;
+      border-radius: 8px;
+      background: silver;
+      transition: background 0.3s ease;
+    }
+
+.container .box-menu #calc {
+    background: #3599F2;
+}
+
+    .container .box-menu .opcao:hover {
+      background: #0056b3;
+    }
+
 .container .boxMensagem {
     min-width: 250px;
-    min-height: 200px;
+    min-height: 150px;
     background: #fff;
     position: absolute;
     top: 40%;
@@ -59,20 +109,22 @@ body {
 
 
 .container .boxMensagem .informations {
-    width: 60%;
+    width: 65%;
     margin: 20px auto 0 auto;
+    padding: 5px;
     display: flex;
     flex-direction: column;
     gap: 5px;
+    background: rgba(202, 54, 255, 0.13);
     /*border: 1px solid;*/
 }
 
 .container .boxMensagem .informations > div {
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 5px;
+    gap: 5px;    
+    font-weight: bold;
     /*background: gold;*/
 }
 
@@ -85,10 +137,10 @@ body {
 
 .container .boxMensagem .informations div span {
     flex: 1;
-    text-align: center;
+    text-align: right;
     font-family: sans-serif;
     font-size: 1em;
-    color: silver;
+    color: #959595;
     /*border: 1px solid tomato;*/
 }
 
@@ -101,15 +153,16 @@ body {
 }
 
 .container .boxMensagem .informations #noturna {
-    color: #7c7a7a;
+    color: #408bea;
 }
 
 .container .boxMensagem button {
     margin-top: 30px;
     background: #2c58fd;
+    font-size: 1em;
     padding: 5px 10px;
     border-radius: 3px;
-    color: #ddd;
+    color: #f7f7f7;
     cursor: pointer;
 }
 
@@ -120,14 +173,54 @@ body {
     font-size: .8rem;
     text-align: left;
     color: #FFEDFF;
+    transition: ease .5s;
     background: #6300EF;
 }
 
 .container .box-break {
-    margin: 20px 15px 0 15px;    
+    position: relative;    
+    padding: 20px 15px;    
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
+    /*background: gold;*/
 }
+
+.balanco-suave { /* exibe de forma animada */
+    animation: balanco-suave 900ms ease-out forwards;
+}
+@keyframes balanco-suave {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  50% {
+    left: 0%;
+    opacity: 1;
+  }
+  70% {
+    left: -5%;
+  }
+  100% {
+    left: 0%;
+  }
+}
+
+
+.recuar {
+  animation: balanco-voltar 300ms ease-out forwards;
+}
+@keyframes balanco-voltar {
+  0% {
+    left: 0%;
+    opacity: 1;
+  }
+  100% {
+    left: -100%;
+    opacity: 0;
+  }
+}
+
+
 
 .container .box-break label {
     margin: 5px 0;
@@ -179,11 +272,11 @@ body {
     margin: 0px auto 30px auto;
     border-radius: 2px;
     color: #FFEDFF;
-    font-size: .85em;
+    font-size: 1em;
     font-weight: bold;
     transition: ease .2s;
     text-transform: uppercase;
-    background: #6100EB;
+    background: #2483D9;
     cursor: pointer;
 }
 
@@ -193,25 +286,62 @@ body {
 
 
 .container .burguer-menu {    
-    width: 25px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     position: absolute;
     cursor: pointer;
-    display: flex;
+    top: 0;
+    right: 8px;
+    /*display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3px;
-    top: 0;
-    right: 0;
+    gap: 3px;*/    
+    /*border: 1px solid tomato;*/
 }
 
 .container .burguer-menu span {
     width: 3px;
-    height: 3px;
+    height: 3px;    
+    margin: 6px 0 0 25px;
+    display: block;
     border-radius: 50%;
     background: #ddd;
+    transition: all ease-in .3s;
 }
+
+
+.container .burguer-menu #close1 {
+    position: relative;
+    top: 5px;
+    right: 3px;
+    margin-top: 0;
+    height: 25px;
+    border-radius: 5px;
+    transform: rotate(45deg);    
+}
+
+.container .burguer-menu #close2 {
+    position: relative;
+    top: -5px;
+    left: 0px;
+    margin-top: 0;
+    opacity: 0;
+}
+
+.container .burguer-menu #close3 {
+    position: relative;
+    top: -23px;
+    right: 3px;
+    height: 25px;
+    margin-top: 0;
+    border-radius: 5px;
+    transform: rotate(-45deg);
+}
+
+
+
+
 
 
 /* Ajustes para telas menores */
@@ -244,7 +374,7 @@ body {
     
     .container .boxMensagem {
     min-width: 300px;
-    min-height: 230px;
+    min-height: 180px;
     }
     
     .container .boxMensagem h2 {
@@ -263,5 +393,9 @@ body {
     
     .container .boxMensagem button {
         font-size: 1.1em;
+    }
+    
+    .container .burguer-menu {
+        margin-top: 5px;
     }
 }
