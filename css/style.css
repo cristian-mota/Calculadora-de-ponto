@@ -9,7 +9,7 @@
 }
 
 body {
-    padding-top: 20px;
+    padding-top: 0px;
     min-height: 100vh;
     font-family: sans-serif;
     background: rgba(0,0,0,0.9);
@@ -348,7 +348,7 @@ body {
 /* Ajustes para telas menores */
 @media (max-width: 580px) {
     .container {
-        width: 95vw;
+        width: 100vw;
         min-height: 50vh;
     }
     
