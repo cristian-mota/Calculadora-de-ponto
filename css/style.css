@@ -17,6 +17,7 @@ body {
 
 .container {
     margin: 0 auto;
+    height: 600px;
     width: 380px;  /* 90% da altura da tela */ 
     position: relative;
     text-align: center;
