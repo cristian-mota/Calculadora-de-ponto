@@ -33,6 +33,7 @@ btncalc.addEventListener('click', () => {
 
 mHamburguer.addEventListener('click', () =>{
            if (calculadora.classList.contains('balanco-suave')) {
+               calculadora.reset()
                spins.forEach((spin) => {
                spin.id = ''; // Remove o ID
            });
@@ -148,21 +149,25 @@ function intersecao(aInicio, aFim, bInicio, bFim) {
         segundoTempo = horaFim - horaVolta        
     } else {segundoTempo = (1440 - horaVolta) + horaFim}
     
-     let negativas; // calcula as horas negativas
+     let negativas, extras; // calcula as horas negativas
      let positivas = primeiroTempo + segundoTempo
      if (positivas < '440') {
          negativas = '440' - positivas
+         extras = '00:00'
          negativas = calcularBatidas(negativas)
-     } else {negativas = '00:00'}
+     } else {
+         extras = positivas - 440 
+         extras = calcularBatidas(extras) // calcula as horas extras
+         negativas = '00:00'}
 
     // calcula as horas positivas
     positivas = calcularBatidas(positivas)
     
-showModal(positivas, negativas, noturnas) 
+showModal(positivas, extras, negativas, noturnas) 
 } // fim function Calcular()
 
 
-function showModal(positivas, negativas, noturnas) {
+function showModal(positivas, extras, negativas, noturnas) {
     let wrapperModal = document.createElement('div')
     wrapperModal.className = 'blackdiv'
     containerApp.appendChild(wrapperModal)    
@@ -189,7 +194,7 @@ function showModal(positivas, negativas, noturnas) {
     },000)
     
     setTimeout(() =>{
-        boxMsg.insertAdjacentHTML("afterbegin",`<h2>Resultado dos Registros</h2><div class="informations"><div><label id="positiva">Positivas</label><span>+ ${positivas}</span></div><div><label id="negativa">Negativas</label><span>- ${negativas}</span></div><div><label id="noturna">Noturnas</label><span>+ ${noturnas}</span></div></div>`)
+        boxMsg.insertAdjacentHTML("afterbegin",`<h2>Resultado dos Registros</h2><div class="informations"><div><label id="positiva">Positivas</label><span>+ ${positivas}</span></div><div><label id="extra">Extras</label><span>+ ${extras}</span></div><div><label id="negativa">Negativas</label><span>- ${negativas}</span></div><div><label id="noturna">Noturnas</label><span>+ ${noturnas}</span></div></div>`)
     },000)
 } // function showModal()
 
