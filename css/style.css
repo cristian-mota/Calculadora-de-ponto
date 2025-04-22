@@ -89,8 +89,9 @@ body {
     }
 
 .container .boxMensagem {
-    min-width: 250px;
-    min-height: 150px;
+    min-width: 80%;
+    min-height: 175px;
+    padding-bottom: 20px;
     background: #fff;
     position: absolute;
     top: 40%;
@@ -98,6 +99,7 @@ body {
     transform: translate(-50%,-50%) scale(.8);
     transition: ease-in-out 200ms;
     opacity: 0;
+    /*border: 1px solid gold;*/
 }
 
 .container .boxMensagem h2 {
@@ -149,12 +151,16 @@ body {
     color: #15ad20;
 }
 
+.container .boxMensagem .informations #extra {
+    color: #408bea;
+}
+
 .container .boxMensagem .informations #negativa {
     color: #f93f5e;
 }
 
 .container .boxMensagem .informations #noturna {
-    color: #408bea;
+    color: #6F316E;
 }
 
 .container .boxMensagem button {
@@ -389,7 +395,7 @@ body {
 
     .container .boxMensagem .informations div label,
     .container .boxMensagem .informations div span {
-        font-size: 1.3em;
+        font-size: 1.2em;
     }
     
     .container .boxMensagem button {
